@@ -1,0 +1,14 @@
+{
+  "name": "future-pathway-quest",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8787",
+    "build:data": "node scripts/build-data-js.mjs",
+    "validate": "node scripts/validate.mjs",
+    "check": "node --check app.js && node --check scripts/build-data-js.mjs && node --check scripts/validate.mjs && node --check scripts/smoke-test.mjs && node --check scripts/screenshot.mjs",
+    "smoke": "node scripts/smoke-test.mjs",
+    "screenshot": "node scripts/screenshot.mjs"
+  }
+}

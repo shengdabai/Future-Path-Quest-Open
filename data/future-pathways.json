@@ -1,0 +1,525 @@
+{
+  "meta": {
+    "name": "Future Pathway Quest Dataset",
+    "asOf": "2026-06-08",
+    "method": "Scores combine labor demand, automation resilience, AI leverage, income potential, learning accessibility, entrepreneurship potential, and fit with real-life growth scenarios. This is a planning model, not a guarantee.",
+    "sources": [
+      {
+        "name": "U.S. Bureau of Labor Statistics Employment Projections 2024-2034",
+        "url": "https://www.bls.gov/emp/",
+        "note": "BLS projects U.S. employment ten years forward and highlights fast-growing occupations and jobs with the most new roles."
+      },
+      {
+        "name": "BLS Fastest Growing Occupations 2024-2034 poster",
+        "url": "https://www.bls.gov/k12/teachers/posters/pdf/fastest-growing-occupations.pdf",
+        "note": "Includes high-growth roles such as wind turbine technicians, solar installers, nurse practitioners, data scientists, information security analysts, medical and health services managers, actuaries, and software developers."
+      },
+      {
+        "name": "World Economic Forum Future of Jobs Report 2025",
+        "url": "https://www.weforum.org/reports/the-future-of-jobs-report-2025/",
+        "note": "Highlights AI, big data, cybersecurity, technological literacy, analytical thinking, resilience, leadership, collaboration, care, education, and green transition as important by 2030."
+      }
+    ]
+  },
+  "skills": [
+    "AI and big data",
+    "Analytical thinking",
+    "Creative thinking",
+    "Cybersecurity",
+    "Systems thinking",
+    "Programming",
+    "Communication",
+    "Leadership",
+    "Financial literacy",
+    "Health and energy management",
+    "Environmental stewardship",
+    "Product sense"
+  ],
+  "majors": [
+    {
+      "id": "ai-data-science",
+      "name": "人工智能与数据科学",
+      "rank": 1,
+      "signal": "AI、大数据和分析能力是 WEF 2030 前增长最快的技能方向之一，BLS 也把 Data Scientists 列入高增长职业。",
+      "demand": 96,
+      "income": 92,
+      "aiLeverage": 100,
+      "resilience": 83,
+      "entrepreneurship": 90,
+      "difficulty": 86,
+      "bestFor": ["喜欢解决复杂问题", "愿意长期学习数学和编程", "想做高杠杆产品或服务"],
+      "coreSkills": ["Python", "statistics", "machine learning", "data storytelling", "experimentation"],
+      "firstProjects": ["用公开数据做一个职业需求预测仪表盘", "训练一个小模型自动分类简历技能", "写 10 篇数据洞察短文"],
+      "careerIds": ["data-ml-engineer", "ai-solutions-architect", "agent-product-builder"]
+    },
+    {
+      "id": "cybersecurity",
+      "name": "网络安全与可信系统",
+      "rank": 2,
+      "signal": "BLS 把 Information Security Analysts 列入 2024-2034 高增长职业，WEF 也强调 networks and cybersecurity。",
+      "demand": 94,
+      "income": 90,
+      "aiLeverage": 88,
+      "resilience": 91,
+      "entrepreneurship": 82,
+      "difficulty": 78,
+      "bestFor": ["重视规则与边界", "能耐心排查问题", "喜欢攻防和风险控制"],
+      "coreSkills": ["networking", "Linux", "threat modeling", "secure coding", "incident response"],
+      "firstProjects": ["搭建家庭实验靶场", "为一个小网站写安全检查清单", "做一份 AI 应用安全审计报告"],
+      "careerIds": ["cybersecurity-architect", "ai-solutions-architect"]
+    },
+    {
+      "id": "software-agent-engineering",
+      "name": "软件工程与智能体开发",
+      "rank": 3,
+      "signal": "BLS 预计 Software Developers 是新增岗位最多的职业之一；AI 会改变写代码方式，但也放大能做产品的人。",
+      "demand": 95,
+      "income": 91,
+      "aiLeverage": 96,
+      "resilience": 78,
+      "entrepreneurship": 94,
+      "difficulty": 80,
+      "bestFor": ["喜欢动手做工具", "希望低成本创业", "能接受快速迭代"],
+      "coreSkills": ["JavaScript", "Python", "APIs", "databases", "agent workflows"],
+      "firstProjects": ["做一个自动化个人助理", "做一个可收费的小 SaaS 原型", "把重复工作封装成脚本"],
+      "careerIds": ["agent-product-builder", "software-developer", "ai-solutions-architect"]
+    },
+    {
+      "id": "robotics-automation",
+      "name": "机器人、自动化与机电一体化",
+      "rank": 4,
+      "signal": "WEF 指出机器人和自动化系统会推动新岗位与技能需求，制造、物流、能源都需要懂软硬结合的人。",
+      "demand": 88,
+      "income": 84,
+      "aiLeverage": 89,
+      "resilience": 88,
+      "entrepreneurship": 78,
+      "difficulty": 88,
+      "bestFor": ["喜欢实体世界", "能处理硬件调试", "愿意把代码和工程结合"],
+      "coreSkills": ["control systems", "embedded software", "computer vision", "CAD", "operations"],
+      "firstProjects": ["用摄像头做物体识别 demo", "改造一个自动化小装置", "研究仓储机器人商业案例"],
+      "careerIds": ["robotics-automation-engineer", "climate-product-manager"]
+    },
+    {
+      "id": "renewable-energy",
+      "name": "新能源工程与电力系统",
+      "rank": 5,
+      "signal": "BLS 高增长榜包含 Wind Turbine Service Technicians 和 Solar Photovoltaic Installers；能源转型也被 WEF 视为就业驱动因素。",
+      "demand": 90,
+      "income": 78,
+      "aiLeverage": 74,
+      "resilience": 93,
+      "entrepreneurship": 76,
+      "difficulty": 76,
+      "bestFor": ["关注长期基础设施", "愿意进入工程现场", "看重现实需求"],
+      "coreSkills": ["power systems", "battery basics", "project finance", "safety", "field operations"],
+      "firstProjects": ["计算家庭光伏回本模型", "做一张储能产业链地图", "分析一个电力负荷数据集"],
+      "careerIds": ["climate-product-manager", "robotics-automation-engineer"]
+    },
+    {
+      "id": "healthcare-nursing",
+      "name": "护理、临床科学与健康科技",
+      "rank": 6,
+      "signal": "BLS 高增长榜包含 Nurse Practitioners，WEF 也指出护理和照护是 2030 前增长的重要方向。",
+      "demand": 93,
+      "income": 86,
+      "aiLeverage": 70,
+      "resilience": 96,
+      "entrepreneurship": 72,
+      "difficulty": 82,
+      "bestFor": ["愿意服务真实的人", "抗压能力强", "想进入稳定且刚需的行业"],
+      "coreSkills": ["clinical reasoning", "patient communication", "health data", "ethics", "care coordination"],
+      "firstProjects": ["做一个慢病管理流程图", "调研 AI 问诊的风险边界", "设计一个患者随访表"],
+      "careerIds": ["nurse-practitioner", "healthcare-ops-manager"]
+    },
+    {
+      "id": "healthcare-management",
+      "name": "公共健康、医疗运营与生物统计",
+      "rank": 7,
+      "signal": "BLS 高增长榜包含 Medical and Health Services Managers；老龄化和医疗系统复杂度带来长期需求。",
+      "demand": 89,
+      "income": 86,
+      "aiLeverage": 83,
+      "resilience": 88,
+      "entrepreneurship": 80,
+      "difficulty": 74,
+      "bestFor": ["喜欢组织系统", "能把数据转为流程改进", "想连接医疗与商业"],
+      "coreSkills": ["operations", "health economics", "statistics", "compliance", "process design"],
+      "firstProjects": ["设计一个门诊排队优化模型", "分析医院运营指标", "做一份远程医疗商业计划"],
+      "careerIds": ["healthcare-ops-manager", "data-ml-engineer"]
+    },
+    {
+      "id": "quant-risk-finance",
+      "name": "精算、量化金融与风险管理",
+      "rank": 8,
+      "signal": "BLS 高增长榜包含 Actuaries；不确定性上升会增加风险建模、保险、投资和合规需求。",
+      "demand": 84,
+      "income": 91,
+      "aiLeverage": 86,
+      "resilience": 82,
+      "entrepreneurship": 78,
+      "difficulty": 89,
+      "bestFor": ["喜欢概率和长期复利", "能严谨建模", "想理解赚钱和风险"],
+      "coreSkills": ["probability", "financial modeling", "Python", "risk controls", "portfolio thinking"],
+      "firstProjects": ["做个人资产配置模拟器", "复盘一次市场泡沫", "建立保险定价小模型"],
+      "careerIds": ["actuary-risk-modeler", "climate-product-manager"]
+    },
+    {
+      "id": "learning-science",
+      "name": "学习科学、教育技术与内容产品",
+      "rank": 9,
+      "signal": "WEF 指出教育角色会增长，且 59% 劳动力可能需要再培训；会设计学习路径的人会有长期价值。",
+      "demand": 82,
+      "income": 74,
+      "aiLeverage": 92,
+      "resilience": 80,
+      "entrepreneurship": 88,
+      "difficulty": 68,
+      "bestFor": ["喜欢教别人", "擅长把复杂事讲清楚", "想做内容、社群或课程产品"],
+      "coreSkills": ["instructional design", "community", "content systems", "assessment", "AI tutoring"],
+      "firstProjects": ["做一门 7 天 AI 入门小课", "搭建学习打卡社群", "把一本书拆成闯关任务"],
+      "careerIds": ["agent-product-builder", "ai-solutions-architect"]
+    },
+    {
+      "id": "environmental-climate",
+      "name": "环境工程、气候科技与可持续商业",
+      "rank": 10,
+      "signal": "WEF 将绿色转型和 environmental stewardship 作为未来技能与岗位驱动力；适合结合政策、工程、产品和金融。",
+      "demand": 80,
+      "income": 76,
+      "aiLeverage": 80,
+      "resilience": 86,
+      "entrepreneurship": 82,
+      "difficulty": 77,
+      "bestFor": ["关注长期问题", "能跨政策和技术", "愿意做耐心型项目"],
+      "coreSkills": ["environmental systems", "carbon accounting", "policy literacy", "data analysis", "project design"],
+      "firstProjects": ["做一个个人碳账本", "分析一个城市节能机会", "设计碳数据合规服务"],
+      "careerIds": ["climate-product-manager", "robotics-automation-engineer"]
+    }
+  ],
+  "careers": [
+    {
+      "id": "ai-solutions-architect",
+      "name": "AI 解决方案架构师",
+      "rank": 1,
+      "mission": "把企业真实问题拆成数据、流程、模型、产品和交付方案。",
+      "demand": 96,
+      "income": 94,
+      "aiLeverage": 100,
+      "resilience": 86,
+      "entrepreneurship": 94,
+      "difficulty": 86,
+      "dayInLife": ["访谈业务方", "设计自动化流程", "评估模型风险", "做原型并计算 ROI"],
+      "proof": ["3 个可演示 AI 工作流", "1 份行业自动化审计报告", "1 个真实客户试点"],
+      "risk": "容易停留在工具堆砌，必须证明业务价值。"
+    },
+    {
+      "id": "data-ml-engineer",
+      "name": "数据科学家 / 机器学习工程师",
+      "rank": 2,
+      "mission": "用数据发现规律、预测结果，并把模型部署到真实流程中。",
+      "demand": 95,
+      "income": 92,
+      "aiLeverage": 97,
+      "resilience": 84,
+      "entrepreneurship": 84,
+      "difficulty": 88,
+      "dayInLife": ["清洗数据", "建模验证", "可视化解释", "上线监控"],
+      "proof": ["预测模型项目", "实验分析报告", "可复现代码仓库"],
+      "risk": "只会调包不够，需要懂业务指标和数据质量。"
+    },
+    {
+      "id": "agent-product-builder",
+      "name": "智能体产品创业者",
+      "rank": 3,
+      "mission": "把个人或企业的重复工作封装成可收费的智能工具。",
+      "demand": 90,
+      "income": 90,
+      "aiLeverage": 100,
+      "resilience": 77,
+      "entrepreneurship": 100,
+      "difficulty": 82,
+      "dayInLife": ["找痛点", "做自动化", "卖给首批用户", "迭代留存"],
+      "proof": ["1 个付费小工具", "10 个用户访谈", "可衡量节省时间"],
+      "risk": "市场验证比技术更难，必须尽早收费验证。"
+    },
+    {
+      "id": "cybersecurity-architect",
+      "name": "网络安全架构师",
+      "rank": 4,
+      "mission": "保护系统、数据和 AI 工作流免受攻击与滥用。",
+      "demand": 94,
+      "income": 91,
+      "aiLeverage": 88,
+      "resilience": 93,
+      "entrepreneurship": 82,
+      "difficulty": 84,
+      "dayInLife": ["威胁建模", "审查权限", "响应事件", "写安全标准"],
+      "proof": ["安全实验室", "漏洞复盘", "AI 应用安全清单"],
+      "risk": "需要持续学习新攻击面，不能只靠证书。"
+    },
+    {
+      "id": "software-developer",
+      "name": "软件开发者 / 自动化工程师",
+      "rank": 5,
+      "mission": "用代码和 AI 工具把想法变成可运行产品。",
+      "demand": 95,
+      "income": 91,
+      "aiLeverage": 96,
+      "resilience": 78,
+      "entrepreneurship": 92,
+      "difficulty": 78,
+      "dayInLife": ["写功能", "调接口", "修 bug", "部署产品"],
+      "proof": ["完整应用", "测试记录", "用户反馈"],
+      "risk": "低端编码会被自动化挤压，产品理解和系统设计更重要。"
+    },
+    {
+      "id": "robotics-automation-engineer",
+      "name": "机器人与自动化工程师",
+      "rank": 6,
+      "mission": "让机器在仓储、工厂、能源和服务场景中可靠执行任务。",
+      "demand": 88,
+      "income": 84,
+      "aiLeverage": 90,
+      "resilience": 89,
+      "entrepreneurship": 76,
+      "difficulty": 89,
+      "dayInLife": ["调传感器", "写控制逻辑", "优化流程", "现场测试"],
+      "proof": ["机器人 demo", "视觉识别项目", "自动化 ROI 分析"],
+      "risk": "硬件周期长，需要耐心和现场能力。"
+    },
+    {
+      "id": "nurse-practitioner",
+      "name": "执业护士 / 高级临床照护者",
+      "rank": 7,
+      "mission": "提供高质量、稳定刚需的临床照护与健康管理。",
+      "demand": 93,
+      "income": 86,
+      "aiLeverage": 70,
+      "resilience": 97,
+      "entrepreneurship": 70,
+      "difficulty": 84,
+      "dayInLife": ["问诊", "诊疗计划", "患者教育", "跨团队协作"],
+      "proof": ["临床资质路径", "病例学习记录", "患者沟通训练"],
+      "risk": "准入门槛和合规要求高，但需求稳定。"
+    },
+    {
+      "id": "healthcare-ops-manager",
+      "name": "医疗运营与健康服务经理",
+      "rank": 8,
+      "mission": "把医疗资源、人员、流程和数据组织得更高效。",
+      "demand": 89,
+      "income": 87,
+      "aiLeverage": 84,
+      "resilience": 88,
+      "entrepreneurship": 82,
+      "difficulty": 76,
+      "dayInLife": ["看运营指标", "改流程", "做预算", "协调团队"],
+      "proof": ["流程优化案例", "指标仪表盘", "合规风险清单"],
+      "risk": "需要懂人、流程、合规和财务，不只是数据分析。"
+    },
+    {
+      "id": "actuary-risk-modeler",
+      "name": "精算师 / 风险建模师",
+      "rank": 9,
+      "mission": "用概率、数据和制度设计管理不确定性。",
+      "demand": 84,
+      "income": 91,
+      "aiLeverage": 86,
+      "resilience": 84,
+      "entrepreneurship": 76,
+      "difficulty": 90,
+      "dayInLife": ["建风险模型", "做压力测试", "写定价假设", "汇报风险"],
+      "proof": ["考试路径", "定价模型", "投资风险复盘"],
+      "risk": "学习曲线陡峭，必须长期训练数学和表达。"
+    },
+    {
+      "id": "climate-product-manager",
+      "name": "气候科技产品经理",
+      "rank": 10,
+      "mission": "把能源、碳数据、政策和客户需求做成可落地产品。",
+      "demand": 82,
+      "income": 82,
+      "aiLeverage": 82,
+      "resilience": 86,
+      "entrepreneurship": 88,
+      "difficulty": 80,
+      "dayInLife": ["研究政策", "访谈客户", "设计产品", "测算减排和收益"],
+      "proof": ["碳账本原型", "行业地图", "客户访谈记录"],
+      "risk": "政策和商业模式变化快，需要持续验证。"
+    }
+  ],
+  "levels": [
+    {
+      "level": 1,
+      "name": "自我扫描",
+      "goal": "确认你的兴趣、资源、时间和风险承受力。",
+      "quests": ["完成 30 分钟职业画像", "选择 3 个候选方向", "写下 10 年后想避免的生活"],
+      "unlock": "路径推荐"
+    },
+    {
+      "level": 2,
+      "name": "基础能力",
+      "goal": "建立数学、英语、编程、表达和财务常识底座。",
+      "quests": ["每天 60 分钟深度学习", "做 1 个 Python 或 JS 小项目", "建立学习账本"],
+      "unlock": "技能树"
+    },
+    {
+      "level": 3,
+      "name": "作品证明",
+      "goal": "从学习者变成能展示结果的人。",
+      "quests": ["发布第一个可演示作品", "写复盘文章", "收集 3 条反馈"],
+      "unlock": "作品集"
+    },
+    {
+      "level": 4,
+      "name": "社交网络",
+      "goal": "连接同学、老师、行业从业者、潜在客户。",
+      "quests": ["每周联系 5 个相关人", "参加 1 次线上活动", "帮助别人解决 1 个问题"],
+      "unlock": "导师与队友"
+    },
+    {
+      "level": 5,
+      "name": "第一次赚钱",
+      "goal": "用技能换到第一笔真实收入。",
+      "quests": ["设计一个 299 元服务包", "找到 10 个潜在客户", "完成一次交付"],
+      "unlock": "收入系统"
+    },
+    {
+      "level": 6,
+      "name": "复利资产",
+      "goal": "把作品、内容、脚本、社群变成可复用资产。",
+      "quests": ["沉淀模板", "建立案例库", "把一个流程自动化"],
+      "unlock": "资产仓库"
+    },
+    {
+      "level": 7,
+      "name": "投资纪律",
+      "goal": "建立现金流、储蓄、低风险投资和风险控制。",
+      "quests": ["记录 30 天消费", "设定应急金", "模拟长期指数投资"],
+      "unlock": "资本面板"
+    },
+    {
+      "level": 8,
+      "name": "真实市场",
+      "goal": "进入真实项目，接受时间、客户、竞争和成本约束。",
+      "quests": ["做一次 2 周冲刺", "公开报价", "交付可量化结果"],
+      "unlock": "市场声望"
+    },
+    {
+      "level": 9,
+      "name": "角色跃迁",
+      "goal": "把候选方向收敛到一个主职业和一个副收入路径。",
+      "quests": ["投递或销售 20 次", "复盘拒绝原因", "完成角色差距清单"],
+      "unlock": "目标身份"
+    },
+    {
+      "level": 10,
+      "name": "未来主线",
+      "goal": "形成职业、社交、赚钱、投资、消费的可持续系统。",
+      "quests": ["稳定周节奏", "月度复盘", "年度路径再选择"],
+      "unlock": "新周目"
+    }
+  ],
+  "actions": [
+    {
+      "id": "deep-study",
+      "name": "深度学习",
+      "cost": 120,
+      "effects": { "skill": 8, "xp": 18, "energy": -8, "capital": -1, "reputation": 1 },
+      "description": "补核心课程、读论文、刷基础题。"
+    },
+    {
+      "id": "build-project",
+      "name": "做作品",
+      "cost": 180,
+      "effects": { "skill": 6, "xp": 24, "energy": -12, "reputation": 5, "capital": -2 },
+      "description": "把知识变成可展示、可复用的作品。"
+    },
+    {
+      "id": "social",
+      "name": "社交协作",
+      "cost": 80,
+      "effects": { "network": 8, "xp": 12, "energy": -6, "reputation": 3, "capital": -1 },
+      "description": "找导师、队友、客户，交换真实反馈。"
+    },
+    {
+      "id": "earn",
+      "name": "小额变现",
+      "cost": 160,
+      "effects": { "capital": 9, "xp": 16, "energy": -14, "reputation": 4, "skill": 2 },
+      "description": "出售服务、模板、自动化脚本或咨询。"
+    },
+    {
+      "id": "invest",
+      "name": "稳健投资",
+      "cost": 60,
+      "effects": { "capital": 4, "xp": 8, "energy": -2, "financial": 7 },
+      "description": "记录现金流、模拟配置、复盘风险。"
+    },
+    {
+      "id": "consume",
+      "name": "策略消费",
+      "cost": 140,
+      "effects": { "energy": 8, "skill": 2, "capital": -4, "xp": 7 },
+      "description": "为设备、课程、健康、关系做有回报的消费。"
+    },
+    {
+      "id": "rest",
+      "name": "恢复能量",
+      "cost": 0,
+      "effects": { "energy": 16, "health": 8, "xp": 3, "capital": 0 },
+      "description": "睡眠、运动、整理环境，避免长期崩盘。"
+    }
+  ],
+  "events": [
+    {
+      "id": "mentor",
+      "title": "导师打开一扇门",
+      "text": "一次高质量请教让你少走两个月弯路。",
+      "effects": { "network": 6, "reputation": 4, "xp": 10 }
+    },
+    {
+      "id": "burnout",
+      "title": "过度冲刺",
+      "text": "你连续熬夜，效率下降。必须恢复节奏。",
+      "effects": { "energy": -12, "health": -8, "xp": -4 }
+    },
+    {
+      "id": "first-client",
+      "title": "第一位真实客户",
+      "text": "客户愿意为一个小自动化付费，市场信号出现。",
+      "effects": { "capital": 14, "reputation": 8, "xp": 16 }
+    },
+    {
+      "id": "tool-shock",
+      "title": "新工具冲击",
+      "text": "行业工具突然升级，低端技能贬值，高阶整合能力更值钱。",
+      "effects": { "ai": 6, "skill": 4, "xp": 8 }
+    },
+    {
+      "id": "bad-course",
+      "title": "低质量课程",
+      "text": "你买到泛泛而谈的课程，提醒自己以后先看样品和评价。",
+      "effects": { "capital": -8, "financial": 4, "xp": 3 }
+    },
+    {
+      "id": "public-proof",
+      "title": "公开作品被转发",
+      "text": "一个小作品被目标行业的人看到，声望上涨。",
+      "effects": { "reputation": 12, "network": 5, "xp": 12 }
+    },
+    {
+      "id": "market-drop",
+      "title": "市场波动",
+      "text": "投资组合回撤，你练习按规则行动而不是情绪交易。",
+      "effects": { "capital": -5, "financial": 7, "resilience": 5 }
+    },
+    {
+      "id": "team-up",
+      "title": "组队通关",
+      "text": "你和队友互补，一个人做技术，一个人找需求。",
+      "effects": { "network": 9, "reputation": 6, "xp": 14 }
+    }
+  ]
+}

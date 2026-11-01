@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>未来路径闯关系统</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23101a3a'/%3E%3Ctext x='9' y='42' font-size='25' fill='%23f2b632' font-family='sans-serif' font-weight='800'%3EFP%3C/text%3E%3C/svg%3E">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="side-rail" aria-label="系统导航">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">FP</div>
+          <div>
+            <p class="eyebrow">Future Pathway Quest</p>
+            <h1>未来路径闯关系统</h1>
+          </div>
+        </div>
+
+        <nav class="nav-stack" aria-label="主导航">
+          <a href="#dashboard">总览</a>
+          <a href="#profile">画像</a>
+          <a href="#decision">决策卡</a>
+          <a href="#majors">专业</a>
+          <a href="#careers">职业</a>
+          <a href="#quest">闯关</a>
+          <a href="#sandbox">人生模拟</a>
+          <a href="#coach">AI教练</a>
+          <a href="#assets">作品赚钱</a>
+          <a href="#roadmap">路线建议</a>
+          <a href="#versions">版本实验</a>
+        </nav>
+
+        <section class="source-strip" aria-label="资料来源">
+          <p class="eyebrow">真实需求来源</p>
+          <a href="https://www.bls.gov/emp/" target="_blank" rel="noreferrer">BLS 2024-2034</a>
+          <a href="https://www.weforum.org/reports/the-future-of-jobs-report-2025/" target="_blank" rel="noreferrer">WEF Future of Jobs 2025</a>
+        </section>
+      </aside>
+
+      <main>
+        <section id="dashboard" class="hero-panel">
+          <div class="hero-copy">
+            <p class="eyebrow">从专业选择到职业跃迁</p>
+            <h2>把未来十年的学习、赚钱、社交、投资和消费，变成一套可玩的成长系统。</h2>
+            <p>
+              选择你的初始画像，系统会重新计算 10 个专业和 10 个职业角色的适配度，并生成从第 1 关到第 10 关的行动路径。
+            </p>
+          </div>
+          <div class="hero-status" aria-live="polite">
+            <div>
+              <span>当前等级</span>
+              <strong id="levelLabel">Lv.1</strong>
+            </div>
+            <div>
+              <span>目标职业</span>
+              <strong id="targetCareerLabel">AI 解决方案架构师</strong>
+            </div>
+            <div>
+              <span>本周状态</span>
+              <strong id="weeklyStateLabel">准备行动</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="board-grid" aria-label="成长仪表盘">
+          <article class="metric-block accent-green">
+            <span>技能</span>
+            <strong id="skillScore">20</strong>
+            <progress id="skillProgress" value="20" max="100"></progress>
+          </article>
+          <article class="metric-block accent-blue">
+            <span>社交</span>
+            <strong id="networkScore">16</strong>
+            <progress id="networkProgress" value="16" max="100"></progress>
+          </article>
+          <article class="metric-block accent-gold">
+            <span>资本</span>
+            <strong id="capitalScore">18</strong>
+            <progress id="capitalProgress" value="18" max="100"></progress>
+          </article>
+          <article class="metric-block accent-red">
+            <span>能量</span>
+            <strong id="energyScore">72</strong>
+            <progress id="energyProgress" value="72" max="100"></progress>
+          </article>
+        </section>
+
+        <section id="command" class="command-lab">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Weekly Command</p>
+              <h2>本周作战台</h2>
+            </div>
+            <div class="command-actions">
+              <button class="secondary-button" id="exportButton" type="button">复制进度</button>
+              <button class="secondary-button" id="importButton" type="button">导入进度</button>
+            </div>
+          </div>
+
+          <div class="command-grid">
+            <article class="command-card focus-card">
+              <p class="eyebrow">本周焦点</p>
+              <h3 id="commandFocus">先完成一次深度学习</h3>
+              <p id="commandReason">系统会根据当前等级、最低资源和证据缺口生成下一步。</p>
+              <a class="primary-link" href="#sandbox">开始本周行动</a>
+            </article>
+            <article class="command-card">
+              <p class="eyebrow">升级进度</p>
+              <strong id="xpLabel">0 / 100 XP</strong>
+              <progress id="xpProgress" value="0" max="100"></progress>
+              <p id="commandRisk">状态健康，适合推进。</p>
+            </article>
+            <article class="command-card">
+              <p class="eyebrow">证据缺口</p>
+              <h3 id="commandProof">等待选择职业</h3>
+              <p id="commandProofMeta">把行动沉淀成可展示证据。</p>
+            </article>
+          </div>
+
+          <div class="import-panel">
+            <label>
+              进度 JSON
+              <textarea id="importInput" rows="4" placeholder="粘贴从“复制进度”得到的 JSON"></textarea>
+            </label>
+            <p id="importStatus" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section id="profile" class="workbench">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Profile Engine</p>
+              <h2>你的初始角色画像</h2>
+            </div>
+            <button class="secondary-button" id="resetButton" type="button">重置进度</button>
+          </div>
+
+          <div class="profile-grid">
+            <label>
+              当前阶段
+              <select id="stageInput">
+                <option value="student">学生 / 转专业探索</option>
+                <option value="early">职场早期 / 转型</option>
+                <option value="builder">已经能做项目</option>
+                <option value="operator">想做高价值服务或创业</option>
+              </select>
+            </label>
+            <label>
+              每周可投入时间
+              <input id="timeInput" type="range" min="5" max="50" value="18">
+              <span id="timeValue">18 小时</span>
+            </label>
+            <label>
+              风险承受力
+              <input id="riskInput" type="range" min="1" max="10" value="6">
+              <span id="riskValue">6 / 10</span>
+            </label>
+            <label>
+              启动资金
+              <input id="budgetInput" type="range" min="0" max="100" value="25">
+              <span id="budgetValue">25 点</span>
+            </label>
+          </div>
+
+          <div class="trait-panel" aria-label="兴趣权重">
+            <button class="trait active" data-trait="tech" type="button">技术</button>
+            <button class="trait active" data-trait="business" type="button">商业</button>
+            <button class="trait" data-trait="people" type="button">助人</button>
+            <button class="trait active" data-trait="data" type="button">数据</button>
+            <button class="trait" data-trait="green" type="button">绿色转型</button>
+            <button class="trait" data-trait="health" type="button">健康</button>
+          </div>
+        </section>
+
+        <section id="decision" class="decision-lab">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Family Decision Card</p>
+              <h2>家庭决策卡</h2>
+            </div>
+            <p class="section-note">把选择变成 30 天内能验证的行动。</p>
+          </div>
+          <div id="decisionGrid" class="decision-grid"></div>
+        </section>
+
+        <section id="majors" class="rank-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Top 10 Majors</p>
+              <h2>未来最佳 10 个专业选择</h2>
+            </div>
+            <p class="section-note">点击卡片可锁定主线，职业推荐会同步变化。</p>
+          </div>
+          <div id="majorList" class="rank-list"></div>
+        </section>
+
+        <section id="careers" class="rank-section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Top 10 Career Roles</p>
+              <h2>未来最佳 10 个职业角色</h2>
+            </div>
+            <p class="section-note">点击适配度徽章可切换目标职业。</p>
+          </div>
+          <div id="careerList" class="career-grid"></div>
+        </section>
+
+        <section id="quest" class="workbench">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Quest Map</p>
+              <h2>从 Lv.1 到 Lv.10 的通关路线</h2>
+            </div>
+            <p class="section-note">每一关都对应现实中的可验证成果。</p>
+          </div>
+          <div id="questMap" class="quest-map"></div>
+        </section>
+
+        <section id="sandbox" class="sandbox">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Life Simulation</p>
+              <h2>每周行动回合</h2>
+            </div>
+            <div class="week-chip">第 <span id="weekNumber">1</span> 周</div>
+          </div>
+
+          <div class="sandbox-layout">
+            <div>
+              <div id="actionGrid" class="action-grid"></div>
+              <div class="event-log" aria-live="polite">
+                <h3>事件记录</h3>
+                <ul id="eventLog"></ul>
+              </div>
+            </div>
+            <aside class="mission-card">
+              <p class="eyebrow">当前主线</p>
+              <h3 id="missionTitle">自我扫描</h3>
+              <p id="missionGoal">确认你的兴趣、资源、时间和风险承受力。</p>
+              <ul id="missionQuests"></ul>
+            </aside>
+          </div>
+        </section>
+
+        <section id="coach" class="coach-lab">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">AI Coach Review</p>
+              <h2>4 周复盘与下一步行动</h2>
+            </div>
+            <button class="secondary-button" id="coachButton" type="button">生成复盘</button>
+          </div>
+
+          <div class="coach-grid">
+            <article class="coach-card primary-coach">
+              <p class="eyebrow">当前诊断</p>
+              <h3 id="coachDiagnosis">等待行动数据</h3>
+              <p id="coachSummary">完成几周行动后，这里会总结你的节奏、瓶颈和下一步重点。</p>
+            </article>
+            <article class="coach-card">
+              <p class="eyebrow">偏差提醒</p>
+              <ul id="coachWarnings"></ul>
+            </article>
+            <article class="coach-card">
+              <p class="eyebrow">下一周最该做</p>
+              <ol id="coachNextActions"></ol>
+            </article>
+          </div>
+
+          <div class="sprint-board" id="sprintBoard" aria-label="30 天冲刺计划"></div>
+        </section>
+
+        <section id="assets" class="asset-lab">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Portfolio & Income System</p>
+              <h2>作品资产与赚钱模型</h2>
+            </div>
+            <button class="secondary-button" id="addEvidenceButton" type="button">添加本周证据</button>
+          </div>
+
+          <div class="asset-layout">
+            <article class="asset-card">
+              <h3>目标职业证据</h3>
+              <p id="portfolioIntro"></p>
+              <ul id="portfolioList"></ul>
+            </article>
+            <article class="asset-card">
+              <h3>已沉淀资产</h3>
+              <div id="evidenceList" class="evidence-list"></div>
+            </article>
+            <article class="asset-card income-card">
+              <h3>服务包报价模拟</h3>
+              <div id="incomeOffers" class="income-offers"></div>
+              <p id="incomeSummary" class="income-summary"></p>
+            </article>
+          </div>
+
+          <form id="evidenceForm" class="evidence-form">
+            <label>
+              证据标题
+              <input id="evidenceTitleInput" type="text" placeholder="例如：AI 工作流审计报告 v1">
+            </label>
+            <label>
+              作品链接
+              <input id="evidenceUrlInput" type="url" placeholder="https://...">
+            </label>
+            <label>
+              状态
+              <select id="evidenceStatusInput">
+                <option value="draft">草稿</option>
+                <option value="published">已发布</option>
+                <option value="validated">有反馈</option>
+                <option value="paid">已变现</option>
+              </select>
+            </label>
+            <label>
+              反馈摘要
+              <textarea id="evidenceFeedbackInput" rows="3" placeholder="记录老师、从业者、客户或同伴反馈"></textarea>
+            </label>
+            <button class="secondary-button" type="submit">保存证据</button>
+            <p id="evidenceFormStatus" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section id="roadmap" class="roadmap-lab">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Better Path Recommendations</p>
+              <h2>更佳发展路线建议</h2>
+            </div>
+            <p class="section-note">把职业选择压缩成 90 天可执行路径。</p>
+          </div>
+          <div id="roadmapGrid" class="roadmap-grid"></div>
+        </section>
+
+        <section id="versions" class="version-lab">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Parallel Version Lab</p>
+              <h2>同步设计的 3 个版本与最终选择</h2>
+            </div>
+          </div>
+          <div class="version-grid">
+            <article>
+              <h3>A. 战略地图版</h3>
+              <p>像经营公司一样管理个人成长：目标、资源、风险、作品、收入和资本。</p>
+              <strong>优点：清晰、可复盘、适合长期规划。</strong>
+            </article>
+            <article>
+              <h3>B. RPG 闯关版</h3>
+              <p>把学习、社交、赚钱拆成任务、等级、随机事件和解锁奖励。</p>
+              <strong>优点：更有游戏感，能促进行动。</strong>
+            </article>
+            <article>
+              <h3>C. 人生沙盒版</h3>
+              <p>每周在学习、做作品、社交、赚钱、投资、消费、恢复之间做取舍。</p>
+              <strong>优点：贴近真实人生约束。</strong>
+            </article>
+            <article class="selected-version">
+              <h3>最终执行：A + B + C 混合版</h3>
+              <p>用战略地图定方向，用 RPG 任务驱动成长，用人生沙盒训练现实取舍。</p>
+              <strong>选择理由：既能规划未来，也能每天推进。</strong>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <template id="scoreBarTemplate">
+      <div class="score-line">
+        <span></span>
+        <meter min="0" max="100"></meter>
+      </div>
+    </template>
+
+    <script src="./data/future-pathways.js"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
