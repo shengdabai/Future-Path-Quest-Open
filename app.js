@@ -79,8 +79,21 @@ function nonnegativeNumber(value, field, fallback = 0) {
   return number;
 }
 
+function isRecord(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function boundedNumber(value, fallback, min, max) {
+  const number = typeof value === "number" || typeof value === "string" ? Number(value) : NaN;
+  return Number.isFinite(number) ? clamp(number, min, max) : fallback;
+}
+
+function textValue(value, fallback, maxLength) {
+  return typeof value === "string" ? value.slice(0, maxLength) : fallback;
+}
+
 function normalizeState(raw) {
-  raw = raw && typeof raw === "object" ? raw : {};
+  if (!isRecord(raw)) throw new Error("进度必须是 JSON 对象");
   const base = structuredClone(defaultState);
   const revenue = nonnegativeNumber(raw.revenue, "收入");
   const xp = nonnegativeNumber(raw.xp, "经验值");
@@ -91,71 +104,84 @@ function normalizeState(raw) {
   const selectedCareerId = DATA.careers.some((career) => career.id === raw.selectedCareerId)
     ? raw.selectedCareerId
     : base.selectedCareerId;
-  const profile = {
-    ...base.profile,
-    ...(raw.profile || {})
-  };
+  const rawProfile = isRecord(raw.profile) ? raw.profile : {};
+  const profile = Object.fromEntries(Object.keys(base.profile).map((key) => [key, rawProfile[key] ?? base.profile[key]]));
   profile.stage = ["student", "early", "builder", "operator"].includes(profile.stage) ? profile.stage : base.profile.stage;
-  profile.time = clamp(Number(profile.time) || base.profile.time, 5, 50);
-  profile.risk = clamp(Number(profile.risk) || base.profile.risk, 1, 10);
-  profile.budget = clamp(Number(profile.budget) || base.profile.budget, 0, 100);
+  profile.time = boundedNumber(profile.time, base.profile.time, 5, 50);
+  profile.risk = boundedNumber(profile.risk, base.profile.risk, 1, 10);
+  profile.budget = boundedNumber(profile.budget, base.profile.budget, 0, 100);
   profile.traits = Array.isArray(profile.traits)
     ? profile.traits.filter((trait) => VALID_TRAITS.includes(trait))
     : base.profile.traits;
   if (!profile.traits.length) profile.traits = base.profile.traits;
 
-  let history = Array.isArray(raw.history) ? raw.history : [];
-  const stats = Object.fromEntries(
-    Object.entries({ ...base.stats, ...(raw.stats || {}) })
-      .map(([key, value]) => [key, clamp(Number(value) || 0)])
-  );
-  if (!history.length && (Number(raw.week) > 1 || Number(raw.xp) > 0)) {
+  const validActionIds = new Set([...DATA.actions.map((action) => action.id), "legacy"]);
+  let history = Array.isArray(raw.history) ? raw.history
+    .filter((item) => isRecord(item) && validActionIds.has(item.actionId))
+    .slice(0, 52)
+    .map((item) => ({
+      week: boundedNumber(item.week, 1, 1, 520),
+      actionId: item.actionId,
+      actionName: textValue(item.actionName, "行动记录", 120),
+      eventTitle: textValue(item.eventTitle, null, 120),
+      stats: normalizeStats(item.stats),
+      xp: boundedNumber(item.xp, 0, 0, Number.MAX_VALUE),
+      level: boundedNumber(item.level, 1, 1, 10)
+    })) : [];
+  const stats = normalizeStats(raw.stats);
+  const week = Math.floor(boundedNumber(raw.week, base.week, 1, 520));
+  if (!history.length && (week > 1 || xp > 0)) {
     history = [{
-      week: Math.max(1, Number(raw.week || 2) - 1),
+      week: Math.max(1, week - 1),
       actionId: "legacy",
       actionName: "旧版本行动记录",
       eventTitle: null,
       stats,
       xp,
-      level: Number(raw.level || 1)
+      level: Math.floor(boundedNumber(raw.level, base.level, 1, 10))
     }];
   }
 
   return {
     ...base,
-    ...raw,
     schemaVersion: STATE_SCHEMA_VERSION,
     selectedMajorId,
     selectedCareerId,
-    week: clamp(Number(raw.week) || base.week, 1, 520),
+    week,
     xp,
-    level: clamp(Number(raw.level) || base.level, 1, 10),
+    level: Math.floor(boundedNumber(raw.level, base.level, 1, 10)),
     stats,
     profile,
     history: history.slice(0, 52),
     portfolio: normalizePortfolio(raw.portfolio),
     revenue,
     lastCoachWeek,
-    log: Array.isArray(raw.log) ? raw.log : base.log
+    log: Array.isArray(raw.log) ? raw.log.filter((item) => typeof item === "string").map((item) => item.slice(0, 500)) : base.log
   };
+}
+
+function normalizeStats(rawStats) {
+  const stats = isRecord(rawStats) ? rawStats : {};
+  return Object.fromEntries(Object.entries(defaultState.stats)
+    .map(([key, fallback]) => [key, boundedNumber(stats[key], fallback, 0, 100)]));
 }
 
 function normalizePortfolio(rawPortfolio) {
   const allProofs = new Set(DATA.careers.flatMap((career) => career.proof));
   return Array.isArray(rawPortfolio)
     ? rawPortfolio
-      .filter((item) => item && typeof item === "object")
+      .filter(isRecord)
       .slice(0, 30)
       .map((item, index) => {
         const proof = allProofs.has(item.proof) ? item.proof : DATA.careers[0].proof[index % DATA.careers[0].proof.length];
         const status = VALID_EVIDENCE_STATUSES.includes(item.status) ? item.status : "draft";
         return {
-          week: clamp(Number(item.week) || 1, 1, 520),
-          title: String(item.title || `作品证据 ${index + 1}`).slice(0, 80),
+          week: boundedNumber(item.week, 1, 1, 520),
+          title: textValue(item.title, `作品证据 ${index + 1}`, 80),
           proof,
           careerId: DATA.careers.some((career) => career.id === item.careerId) ? item.careerId : defaultState.selectedCareerId,
           url: normalizeUrl(item.url),
-          feedback: String(item.feedback || "").slice(0, 180),
+          feedback: textValue(item.feedback, "", 180),
           status
         };
       })
@@ -163,13 +189,17 @@ function normalizePortfolio(rawPortfolio) {
 }
 
 function normalizeUrl(value) {
-  const text = String(value || "").trim();
+  const text = typeof value === "string" ? value.trim() : "";
   if (!text) return "";
   return /^https?:\/\//i.test(text) ? text.slice(0, 240) : "";
 }
 
 function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch {
+    $("importStatus").textContent = "浏览器无法保存进度。当前进度仍在本页，请导出备份后再关闭。";
+  }
 }
 
 function traitBoost(item) {
@@ -403,6 +433,7 @@ function applyEffects(effects) {
     }
     state.stats[key] = clamp((state.stats[key] || 0) + value);
   });
+  state.level = clamp(1 + Math.floor(state.xp / 100), 1, 10);
 }
 
 function applyAction(action) {
@@ -423,7 +454,6 @@ function applyAction(action) {
 
   recordHistory(action, event);
   state.week += 1;
-  state.level = clamp(1 + Math.floor(state.xp / 100), 1, 10);
   maybeAutoCoach();
   if (state.level === 10 && state.stats.reputation > 70 && state.stats.capital > 60) {
     state.log.unshift("通关条件达成：你已经形成职业、社交、收入、投资和消费的复利系统。");
